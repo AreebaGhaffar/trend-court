@@ -92,8 +92,11 @@ export default function Trial() {
         </p>
         <p>{defendant.verdictReason}</p>
         <p className="caveat">
-          Candidate change-point around 2020 — to be confirmed by a named
-          change-point test. It is a candidate, not a proven year.
+          Pettitt’s test confirms a change-point for this defendant: split after{' '}
+          {defendant.changePointSplitAfter}, new regime starts{' '}
+          {defendant.changePointStarts} (K = {defendant.changePointK}, p ≈{' '}
+          {defendant.changePointP}). The two defendants did not shift together —
+          temperature starts 2011, rainfall starts 2019.
         </p>
       </section>
     </Page>

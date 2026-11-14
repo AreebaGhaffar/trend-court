@@ -39,21 +39,31 @@ export default function Lab() {
       </section>
 
       <section className="panel">
-        <h2>Change-point: a candidate around 2020</h2>
+        <h2>Change-point: confirmed by Pettitt’s test — and not coincident</h2>
         <p>
-          Neither trend is significant on 2000–2019 alone after correction,
-          and both are significant once the 2020s are included. That points to
-          a candidate regime shift around 2020. It is a candidate, not a proven
-          single year — confirm it with a named change-point test (for example
-          Pettitt’s test) before the demo quotes a change-point year. If the
-          test does not confirm a single year, say “candidate shift around
-          2020 — not confirmed to a single year.”
+          Pettitt’s change-point test (1979), run in{' '}
+          <code>analysis/pettitt_test.py</code> on the 26 annual values, confirms
+          a single change-point year for each series at p &lt; 0.05:
         </p>
+        <ul>
+          <li>
+            Temperature: K = 111, p ≈ 0.035. Split after 2010 — the new regime
+            starts in 2011 (2000–2010 mean 26.64 °C → 2011–2025 mean 25.87 °C).
+          </li>
+          <li>
+            Rainfall: K = 117, p ≈ 0.022. Split after 2018 — the new regime
+            starts in 2019 (2000–2018 mean 381.49 mm → 2019–2025 mean 667.61 mm).
+          </li>
+        </ul>
         <p>
-          Coincident shift: because the temperature and rainfall candidates fall
-          in the same period, the tool may flag a coincident regime shift
-          around 2020 — as two series changing in the same period, not as
-          proof that one caused the other.
+          Neither is significant at p &lt; 0.01. The earlier “candidate
+          change-point around 2020” is therefore wrong as a single year, and
+          there is <strong>no coincident regime shift</strong>: the two confirmed
+          change-points are 8 years apart (2011 vs 2019). Do not quote 2020 as
+          the change-point year, and do not claim the two series shifted
+          together. The rainfall rise is still a wet-2020s story in the
+          sub-period sense, but Pettitt’s formal change-point for rainfall is
+          the start of 2019, not 2020.
         </p>
       </section>
 
