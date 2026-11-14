@@ -1,6 +1,6 @@
 import Page from '../components/Page'
 import TrendChart from '../components/TrendChart'
-import { defendants } from '../data/trends'
+import { defendants, wetYears } from '../data/trends'
 
 export default function Evidence() {
   return (
@@ -63,9 +63,11 @@ export default function Evidence() {
       <section className="panel">
         <h2>The wet years driving the rainfall rise</h2>
         <p>
-          2020: 1,075.2 mm · 2022: 667.0 mm · 2023: 707.3 mm · 2024: 620.0 mm ·
-          2025: 708.6 mm. The rainfall rise is a wet-2020s story, not a steady
-          26-year climb — never present it as one.
+          {Object.entries(wetYears)
+            .map(([year, mm]) => `${year}: ${mm.toLocaleString('en-US', { minimumFractionDigits: 1 })} mm`)
+            .join(' · ')}
+          . The rainfall rise is a wet-2020s story, not a steady 26-year climb
+          — never present it as one.
         </p>
         <p className="caveat">
           POWER precipitation (PRECTOTCORR) is a model/reanalysis product, not

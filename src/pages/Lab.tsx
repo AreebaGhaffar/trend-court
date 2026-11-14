@@ -20,16 +20,27 @@ export default function Lab() {
           not only uncorrected ones.
         </p>
         <ul>
-          <li>Temperature: Sen’s slope −0.054 °C/yr, Hamed-Rao p ≈ 0.0057, Yue-Pilon p ≈ 0.018.</li>
-          <li>Rainfall: Sen’s slope +13.5 mm/yr, Hamed-Rao p ≈ 0.0005, Yue-Pilon p ≈ 0.0047.</li>
+          {defendants.map((d) => (
+            <li key={d.id}>
+              {d.id === 'temperature' ? 'Temperature' : 'Rainfall'}: Sen’s slope{' '}
+              {d.slopeLabel}, Hamed-Rao p ≈ {d.pHamedRao}, Yue-Pilon p ≈{' '}
+              {d.pYuePilon}.
+            </li>
+          ))}
         </ul>
       </section>
 
       <section className="panel">
         <h2>The confidence label — read this carefully</h2>
         <p>
-          Displayed confidence = (1 − Hamed-Rao p) × 100. Temperature: 99.4%.
-          Rainfall: 99.95%. This is a <strong>frequentist confidence
+          Displayed confidence = (1 − Hamed-Rao p) × 100.{' '}
+          {defendants.map((d) => (
+            <span key={d.id}>
+              {d.id === 'temperature' ? 'Temperature' : 'Rainfall'}:{' '}
+              {d.confidenceLabel}.{' '}
+            </span>
+          ))}
+          This is a <strong>frequentist confidence
           approximation</strong> used as a plain-language label. It is{' '}
           <strong>not a Bayesian posterior probability</strong> — no Bayesian
           model was fitted. If a genuine Bayesian change-point model is fitted
@@ -46,14 +57,15 @@ export default function Lab() {
           a single change-point year for each series at p &lt; 0.05:
         </p>
         <ul>
-          <li>
-            Temperature: K = 111, p ≈ 0.035. Split after 2010 — the new regime
-            starts in 2011 (2000–2010 mean 26.64 °C → 2011–2025 mean 25.87 °C).
-          </li>
-          <li>
-            Rainfall: K = 117, p ≈ 0.022. Split after 2018 — the new regime
-            starts in 2019 (2000–2018 mean 381.49 mm → 2019–2025 mean 667.61 mm).
-          </li>
+          {defendants.map((d) => (
+            <li key={d.id}>
+              {d.id === 'temperature' ? 'Temperature' : 'Rainfall'}: K ={' '}
+              {d.changePointK}, p ≈ {d.changePointP}. Split after{' '}
+              {d.changePointSplitAfter} — the new regime starts in{' '}
+              {d.changePointStarts} (mean {d.changePointMeanBefore} →{' '}
+              {d.changePointMeanAfter}).
+            </li>
+          ))}
         </ul>
         <p>
           Neither is significant at p &lt; 0.01. The earlier “candidate

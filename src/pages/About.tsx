@@ -1,4 +1,5 @@
 import Page from '../components/Page'
+import { defendants, getDefendant } from '../data/trends'
 
 export default function About() {
   return (
@@ -13,9 +14,14 @@ export default function About() {
           <li>Period: 2000–2025, 26 annual values. 2025 is a complete year.</li>
           <li>Variables: T2M — annual mean 2-metre air temperature (°C). PRECTOTCORR — annual total corrected precipitation (mm).</li>
           <li>
-            Pettitt’s change-point test confirms: temperature new regime starts
-            2011 (K = 111, p ≈ 0.035), rainfall new regime starts 2019 (K = 117,
-            p ≈ 0.022). They did not shift together — do not quote 2020 as the
+            Pettitt’s change-point test confirms:{' '}
+            {defendants
+              .map(
+                (d) =>
+                  `${d.id === 'temperature' ? 'temperature' : 'rainfall'} new regime starts ${d.changePointStarts} (K = ${d.changePointK}, p ≈ ${d.changePointP})`,
+              )
+              .join('; ')}
+            . They did not shift together — do not quote 2020 as the
             change-point year.
           </li>
           <li>Method: Mann-Kendall + Sen’s slope, Hamed-Rao and Yue-Pilon autocorrelation corrections, 2000–2019 sub-period check, drop-2020 sensitivity check, Pettitt change-point test.</li>
@@ -26,11 +32,18 @@ export default function About() {
         <h2>Caveats — stated wherever the results appear</h2>
         <ul>
           <li>POWER precipitation is a model/reanalysis product, not rain-gauge data.</li>
-          <li>The temperature fall (−0.054 °C/yr) is counterintuitive for Punjab and still needs a MODIS land-surface-temperature cross-check. Do not use it to relax heat planning.</li>
+          <li>
+            The temperature fall ({getDefendant('temperature').slopeLabel}) is
+            counterintuitive for Punjab and still needs a MODIS
+            land-surface-temperature cross-check. Do not use it to relax heat
+            planning.
+          </li>
           <li>Displayed confidence is (1 − p) × 100, a frequentist approximation — not a Bayesian posterior.</li>
           <li>
-            The change-points are Pettitt-confirmed (temperature 2011, rainfall
-            2019) — not around 2020, and not coincident.
+            The change-points are Pettitt-confirmed (temperature{' '}
+            {getDefendant('temperature').changePointStarts}, rainfall{' '}
+            {getDefendant('rainfall').changePointStarts}) — not around 2020, and
+            not coincident.
           </li>
         </ul>
       </section>

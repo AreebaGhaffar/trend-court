@@ -39,6 +39,8 @@ export interface Defendant {
   changePointStarts: number
   changePointK: number
   changePointP: number
+  changePointMeanBefore: number
+  changePointMeanAfter: number
   dataKey: 'mean_temp_c' | 'total_rain_mm'
   color: string
 }
@@ -50,6 +52,17 @@ export const wetYears: Record<string, number> = raw.trends.rainfall
   .wet_years_driving_the_rise_mm as Record<string, number>
 export const verdictRule: string = raw.verdicts.rule
 
+function formatSlope(slope: number, unit: string): string {
+  const sign = slope > 0 ? '+' : slope < 0 ? '\u2212' : ''
+  return `${sign}${Math.abs(slope)} ${unit}`
+}
+
+function formatConfidence(pHamedRao: number): string {
+  const value = (1 - pHamedRao) * 100
+  const decimals = pHamedRao >= 0.001 ? 1 : 2
+  return `${value.toFixed(decimals)}%`
+}
+
 export const defendants: Defendant[] = [
   {
     id: 'temperature',
@@ -57,11 +70,11 @@ export const defendants: Defendant[] = [
     variable: 'T2M — annual mean 2-metre air temperature',
     unit: '°C per year',
     slope: raw.trends.temperature.full_period_2000_2025.sens_slope_per_year,
-    slopeLabel: '−0.054 °C per year',
+    slopeLabel: formatSlope(raw.trends.temperature.full_period_2000_2025.sens_slope_per_year, '°C per year'),
     pHamedRao: raw.trends.temperature.full_period_2000_2025.p_hamed_rao,
     pYuePilon: raw.trends.temperature.full_period_2000_2025.p_yue_pilon,
     pUncorrected: raw.trends.temperature.full_period_2000_2025.p_uncorrected,
-    confidenceLabel: '99.4%',
+    confidenceLabel: formatConfidence(raw.trends.temperature.full_period_2000_2025.p_hamed_rao),
     first5Mean: raw.trends.temperature.full_period_2000_2025.first_5_years_mean_2000_2004,
     last5Mean: raw.trends.temperature.full_period_2000_2025.last_5_years_mean_2021_2025,
     subSlope: raw.trends.temperature.subperiod_2000_2019.sens_slope_per_year,
@@ -76,6 +89,8 @@ export const defendants: Defendant[] = [
     changePointStarts: raw.trends.temperature.change_point_pettitt.new_regime_starts_year,
     changePointK: raw.trends.temperature.change_point_pettitt.K_max_abs_U,
     changePointP: raw.trends.temperature.change_point_pettitt.p_approx,
+    changePointMeanBefore: raw.trends.temperature.change_point_pettitt.mean_before_split,
+    changePointMeanAfter: raw.trends.temperature.change_point_pettitt.mean_after_split,
     dataKey: 'mean_temp_c',
     color: '#7fb3d5',
   },
@@ -85,11 +100,11 @@ export const defendants: Defendant[] = [
     variable: 'PRECTOTCORR — annual total corrected precipitation',
     unit: 'mm per year',
     slope: raw.trends.rainfall.full_period_2000_2025.sens_slope_per_year,
-    slopeLabel: '+13.5 mm per year',
+    slopeLabel: formatSlope(raw.trends.rainfall.full_period_2000_2025.sens_slope_per_year, 'mm per year'),
     pHamedRao: raw.trends.rainfall.full_period_2000_2025.p_hamed_rao,
     pYuePilon: raw.trends.rainfall.full_period_2000_2025.p_yue_pilon,
     pUncorrected: raw.trends.rainfall.full_period_2000_2025.p_uncorrected,
-    confidenceLabel: '99.95%',
+    confidenceLabel: formatConfidence(raw.trends.rainfall.full_period_2000_2025.p_hamed_rao),
     first5Mean: raw.trends.rainfall.full_period_2000_2025.first_5_years_mean_2000_2004,
     last5Mean: raw.trends.rainfall.full_period_2000_2025.last_5_years_mean_2021_2025,
     subSlope: raw.trends.rainfall.subperiod_2000_2019.sens_slope_per_year,
@@ -104,6 +119,8 @@ export const defendants: Defendant[] = [
     changePointStarts: raw.trends.rainfall.change_point_pettitt.new_regime_starts_year,
     changePointK: raw.trends.rainfall.change_point_pettitt.K_max_abs_U,
     changePointP: raw.trends.rainfall.change_point_pettitt.p_approx,
+    changePointMeanBefore: raw.trends.rainfall.change_point_pettitt.mean_before_split,
+    changePointMeanAfter: raw.trends.rainfall.change_point_pettitt.mean_after_split,
     dataKey: 'total_rain_mm',
     color: '#c9a227',
   },
