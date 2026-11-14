@@ -34,6 +34,11 @@ export interface Defendant {
   dropPHamedRao: number
   verdict: string
   verdictReason: string
+  /** Pettitt change-point test (1979), from trends.json. Confirmed single year. */
+  changePointSplitAfter: number
+  changePointStarts: number
+  changePointK: number
+  changePointP: number
   dataKey: 'mean_temp_c' | 'total_rain_mm'
   color: string
 }
@@ -67,6 +72,10 @@ export const defendants: Defendant[] = [
     dropPHamedRao: raw.trends.temperature.drop_2020_outlier.p_hamed_rao,
     verdict: 'Not Proven — Don’t trust it yet',
     verdictReason: raw.verdicts.temperature.reason,
+    changePointSplitAfter: raw.trends.temperature.change_point_pettitt.split_after_year,
+    changePointStarts: raw.trends.temperature.change_point_pettitt.new_regime_starts_year,
+    changePointK: raw.trends.temperature.change_point_pettitt.K_max_abs_U,
+    changePointP: raw.trends.temperature.change_point_pettitt.p_approx,
     dataKey: 'mean_temp_c',
     color: '#7fb3d5',
   },
@@ -91,6 +100,10 @@ export const defendants: Defendant[] = [
     dropPHamedRao: raw.trends.rainfall.drop_2020_outlier.p_hamed_rao,
     verdict: 'Not Proven — Don’t trust it yet',
     verdictReason: raw.verdicts.rainfall.reason,
+    changePointSplitAfter: raw.trends.rainfall.change_point_pettitt.split_after_year,
+    changePointStarts: raw.trends.rainfall.change_point_pettitt.new_regime_starts_year,
+    changePointK: raw.trends.rainfall.change_point_pettitt.K_max_abs_U,
+    changePointP: raw.trends.rainfall.change_point_pettitt.p_approx,
     dataKey: 'total_rain_mm',
     color: '#c9a227',
   },
