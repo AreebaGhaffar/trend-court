@@ -37,7 +37,7 @@ export function TrendChart({ defendant }) {
     const rows = series.map((v, i) =>
       typeof v === 'object' ? v : { year: 2000 + i, value: v })
     return (
-      <figure className="chart">
+      <figure className="chart" role="img" aria-label={`${defendant.name} chart — trend ${defendant.trend_display}, from trends.json`}>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={rows} margin={{ top: 10, right: 16, bottom: 0, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -58,7 +58,7 @@ export function TrendChart({ defendant }) {
   const rows = defendant.period_means || []
   if (!rows.length) return <p className="muted">Not tested — no chart.</p>
   return (
-    <figure className="chart">
+    <figure className="chart" role="img" aria-label={`${defendant.name} chart — trend ${defendant.trend_display}, from trends.json`}>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={rows} margin={{ top: 10, right: 16, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />

@@ -40,3 +40,14 @@
 .table th { background: var(--navy-dark); color: #fff; }
 .footer { border-top: 3px solid var(--gold); background: var(--navy-dark); color: #dbe4f0; padding: 1rem; text-align: center; font-size: 0.9rem; }
 @media (max-width: 560px) { h1 { font-size: 1.7rem; } .page { padding: 1rem 0.8rem 2rem; } }
+
+/* Overnight polish: keyboard focus, small-screen tables, wrapping defendant picker */
+.navlink:focus-visible, .btn:focus-visible, .pick-btn:focus-visible, .brand:focus-visible {
+  outline: 3px solid var(--gold); outline-offset: 2px;
+}
+.pick { flex-wrap: wrap; }
+@media (max-width: 560px) {
+  .step { padding: 0.9rem; overflow-x: auto; }
+  .table { font-size: 0.88rem; }
+  .trend-size { font-size: 1.3rem; }
+}

@@ -90,7 +90,7 @@ export function Evidence() {
           <h2>{d.name} — {d.trend_display}</h2>
           <TrendChart defendant={d} />
           <table className="table">
-            <thead><tr><th>Check</th><th>Result</th></tr></thead>
+            <thead><tr><th scope="col">Check</th><th scope="col">Result</th></tr></thead>
             <tbody>
               <tr><td>Full period {data.meta.period}</td>
                 <td>Significant after correction — Hamed-Rao p ≈ {d.p_hamed_rao}, Yue-Pilon p ≈ {d.p_yue_pilon}; confidence {d.confidence_percent}%</td></tr>
@@ -107,7 +107,7 @@ export function Evidence() {
             <>
               <h3>Wet years recorded in the plan</h3>
               <table className="table">
-                <thead><tr><th>Year</th><th>Rainfall</th></tr></thead>
+                <thead><tr><th scope="col">Year</th><th scope="col">Rainfall</th></tr></thead>
                 <tbody>{d.annual_known_points.map((p) => (
                   <tr key={p.year}><td>{p.year}</td><td>{p.value} mm</td></tr>))}
                 </tbody>
@@ -137,7 +137,7 @@ export function Verdict() {
       <p className="lede">
         {d.name} ({d.trend_display}) is <strong>{d.verdict}</strong> as a steady
         {' '}{data.meta.period} trend. It is significant on the full period, but not on
-        2000–2019 alone — it is the wet / changed 2020s, not a steady long climb or fall.
+        2000–2019 alone — it is the {d.id === 'rainfall' ? 'wet' : 'changed'} 2020s, not a steady long climb or fall.
       </p>
       <div className="grid">
         <article className="card"><h3>Do</h3><p>{d.planner_do}</p></article>
@@ -145,7 +145,7 @@ export function Verdict() {
       </div>
       <h2>How every verdict is decided</h2>
       <table className="table">
-        <thead><tr><th>Verdict</th><th>Rule</th><th>For the planner</th></tr></thead>
+        <thead><tr><th scope="col">Verdict</th><th scope="col">Rule</th><th scope="col">For the planner</th></tr></thead>
         <tbody>{data.verdict_rules.map((r) => (
           <tr key={r.verdict}><td>{r.verdict}</td><td>{r.rule}</td><td>{r.planner_meaning}</td></tr>))}
         </tbody>
@@ -181,7 +181,7 @@ export function About() {
       <h1>About / Data &amp; Caveats</h1>
       <section className="step"><h2>The project</h2>
         <p>{data.meta.project}, by {data.meta.team}, for {data.meta.event} —
-        challenge: “{data.meta.challenge}” The named user is a Faisalabad city water and
+        challenge: “{data.meta.challenge}”. The named user is a Faisalabad city water and
         drainage planner deciding whether to plan for wetter years — and whether a small
         fall in temperature means heat planning can relax. Trend Court answers both
         honestly, including when the honest answer is “do not act on this yet.”</p></section>
