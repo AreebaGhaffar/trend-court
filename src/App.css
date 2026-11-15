@@ -18,7 +18,7 @@
 
 .brand {
   color: var(--gold);
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Bodoni Moda', Georgia, serif;
   font-size: 1.25rem;
   font-weight: 700;
   text-decoration: none;
@@ -577,7 +577,7 @@
   border: 4px double var(--amber);
   border-radius: 8px;
   color: var(--amber);
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Bodoni Moda', Georgia, serif;
   font-weight: 900;
   letter-spacing: 0.12em;
   font-size: clamp(1.3rem, 5vw, 2rem);

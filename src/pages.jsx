@@ -487,12 +487,7 @@ export function About() {
           <li>MODIS NDVI and GRACE / GRACE-FO are future tested defendants only — not claimed results. GRACE measures total water storage, not groundwater alone.</li>
           <li>{data.not_tested_message}</li>
         </ul></section>
-      <section className="step"><h2>AI-use declaration</h2>
-        <p>Team Mind Flayer used Muse AI as a building helper for code, debugging, checking
-          numbers against the project data file, and drafting submission text. All data,
-          statistical tests, and results are from the NASA dataset and methods stated above,
-          and the team reviewed and verified the final project. Muse AI is not a registered
-          team member.</p></section>
+
     </main>
   )
 }

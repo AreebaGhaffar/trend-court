@@ -2,65 +2,227 @@
    Every animation here is disabled or replaced by a final state under
    prefers-reduced-motion, so all content stays readable with motion off. */
 
-@keyframes twinkle { from { opacity: 0.45; } to { opacity: 0.95; } }
-@keyframes routeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes twinkle {
+  from {
+    opacity: 0.45;
+  }
+
+  to {
+    opacity: 0.95;
+  }
+}
+
+@keyframes routeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes badgePulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(233, 180, 76, 0.45); }
-  50% { box-shadow: 0 0 0 7px rgba(233, 180, 76, 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(233, 180, 76, 0.45);
+  }
+
+  50% {
+    box-shadow: 0 0 0 7px rgba(233, 180, 76, 0);
+  }
 }
+
 @keyframes stampSlam {
-  0% { opacity: 0; transform: rotate(-14deg) scale(2.6); }
-  55% { opacity: 1; transform: rotate(-9deg) scale(0.92); }
-  75% { transform: rotate(-10deg) scale(1.05); }
-  100% { opacity: 1; transform: rotate(-10deg) scale(1); }
+  0% {
+    opacity: 0;
+    transform: rotate(-14deg) scale(2.6);
+  }
+
+  55% {
+    opacity: 1;
+    transform: rotate(-9deg) scale(0.92);
+  }
+
+  75% {
+    transform: rotate(-10deg) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(-10deg) scale(1);
+  }
 }
+
 @keyframes shakeX {
-  0%, 100% { transform: translateX(0); }
-  15% { transform: translateX(-7px); }
-  35% { transform: translateX(6px); }
-  55% { transform: translateX(-4px); }
-  75% { transform: translateX(3px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  15% {
+    transform: translateX(-7px);
+  }
+
+  35% {
+    transform: translateX(6px);
+  }
+
+  55% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(3px);
+  }
 }
+
 @keyframes rainFall {
-  0% { transform: translateY(-12%); opacity: 0; }
-  12% { opacity: var(--drop-opacity, 0.35); }
-  88% { opacity: var(--drop-opacity, 0.35); }
-  100% { transform: translateY(105%); opacity: 0; }
+  0% {
+    transform: translateY(-12%);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: var(--drop-opacity, 0.35);
+  }
+
+  88% {
+    opacity: var(--drop-opacity, 0.35);
+  }
+
+  100% {
+    transform: translateY(105%);
+    opacity: 0;
+  }
 }
-@keyframes spinSlow { to { transform: rotate(360deg); } }
-@keyframes pulseDot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseDot {
+
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
 
 /* Soft fade between routes */
-.route-fade { animation: routeIn 0.45s ease both; }
+.route-fade {
+  animation: routeIn 0.45s ease both;
+}
 
 /* Scroll reveal — useReveal adds .reveal-visible when the element enters view.
    Without JS/IO support the hook adds the visible class immediately. */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal-visible { opacity: 1; transform: none; }
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* Defendant cards tilt on hover, so their transform must respond quickly
    while the reveal fade still plays at full length. */
-.card.reveal { transition: opacity 0.6s ease, transform 0.18s ease-out, box-shadow 0.25s ease, border-color 0.25s ease; }
+.card.reveal {
+  transition: opacity 0.6s ease, transform 0.18s ease-out, box-shadow 0.25s ease, border-color 0.25s ease;
+}
 
 /* Crossfade swap for keyed content (evidence stats, verdict defendant) */
-.fade-swap { animation: fadeIn 0.45s ease both; }
+.fade-swap {
+  animation: fadeIn 0.45s ease both;
+}
 
 /* Gentle pulse for the "Don't trust it yet" badge */
-.badge-pulse { animation: badgePulse 2.6s ease-in-out infinite; }
+.badge-pulse {
+  animation: badgePulse 2.6s ease-in-out infinite;
+}
 
 /* One-shot stamp slam + screen shake */
-.stamp-slam { animation: stampSlam 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
-.shake { animation: shakeX 0.38s ease; }
-.shake-long { animation: shakeX 0.6s ease; }
+.stamp-slam {
+  animation: stampSlam 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.shake {
+  animation: shakeX 0.38s ease;
+}
+
+.shake-long {
+  animation: none;
+}
 
 /* Animated decorative icon next to Method Lab step headings */
-.step-icon { display: inline-block; vertical-align: -0.18em; margin-right: 0.45rem; }
-.step-icon .ring { transform-origin: center; animation: spinSlow 9s linear infinite; }
-.step-icon .dot { animation: pulseDot 2.2s ease-in-out infinite; }
+.step-icon {
+  display: inline-block;
+  vertical-align: -0.18em;
+  margin-right: 0.45rem;
+}
+
+.step-icon .ring {
+  transform-origin: center;
+  animation: spinSlow 9s linear infinite;
+}
+
+.step-icon .dot {
+  animation: pulseDot 2.2s ease-in-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .route-fade, .fade-swap, .badge-pulse, .stamp-slam, .shake, .shake-long { animation: none; }
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .step-icon .ring, .step-icon .dot { animation: none; }
+
+  .route-fade,
+  .fade-swap,
+  .badge-pulse,
+  .stamp-slam,
+  .shake,
+  .shake-long {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .step-icon .ring,
+  .step-icon .dot {
+    animation: none;
+  }
 }

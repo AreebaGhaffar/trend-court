@@ -17,8 +17,15 @@
   color: var(--ink);
   background: var(--bg-deep);
 }
-* { box-sizing: border-box; }
-html { scrollbar-color: var(--line) var(--bg-deep); }
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-color: var(--line) var(--bg-deep);
+}
+
 body {
   margin: 0;
   color: var(--ink);
@@ -26,25 +33,53 @@ body {
   background-attachment: fixed;
   min-height: 100vh;
 }
+
 /* Faint twinkling star field — pure CSS, layered radial-gradient dots. */
 body::before {
   content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background-image:
-    radial-gradient(1.5px 1.5px at 22px 34px, rgba(255,255,255,0.85) 50%, transparent 51%),
-    radial-gradient(1px 1px at 130px 90px, rgba(91,192,235,0.8) 50%, transparent 51%),
-    radial-gradient(1.2px 1.2px at 70px 150px, rgba(255,255,255,0.6) 50%, transparent 51%),
-    radial-gradient(1px 1px at 190px 40px, rgba(233,180,76,0.75) 50%, transparent 51%),
-    radial-gradient(1.4px 1.4px at 250px 170px, rgba(255,255,255,0.7) 50%, transparent 51%),
-    radial-gradient(1px 1px at 310px 110px, rgba(255,255,255,0.5) 50%, transparent 51%);
+    radial-gradient(1.5px 1.5px at 22px 34px, rgba(255, 255, 255, 0.85) 50%, transparent 51%),
+    radial-gradient(1px 1px at 130px 90px, rgba(91, 192, 235, 0.8) 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 70px 150px, rgba(255, 255, 255, 0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 190px 40px, rgba(233, 180, 76, 0.75) 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 250px 170px, rgba(255, 255, 255, 0.7) 50%, transparent 51%),
+    radial-gradient(1px 1px at 310px 110px, rgba(255, 255, 255, 0.5) 50%, transparent 51%);
   background-size: 340px 220px;
   animation: twinkle 7s ease-in-out infinite alternate;
 }
-#root { position: relative; z-index: 1; }
-h1, h2, h3 { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; color: #F4EDDA; }
-h1 { font-size: 2.2rem; margin: 0.4rem 0 0.8rem; }
-h2 { font-size: 1.4rem; margin: 1.6rem 0 0.6rem; }
-a { color: var(--cyan); }
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Bodoni Moda', Georgia, 'Times New Roman', serif;
+  color: #F4EDDA;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin: 0.4rem 0 0.8rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin: 1.6rem 0 0.6rem;
+}
+
+a {
+  color: var(--cyan);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  body::before { animation: none; }
+  body::before {
+    animation: none;
+  }
 }
