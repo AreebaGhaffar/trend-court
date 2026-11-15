@@ -1,11 +1,11 @@
-import { useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { useTrends, defendantById } from './data.jsx'
 import { VerdictBadge, ConfidenceMeter, TrendChart, DefendantCard, YearDial } from './components.jsx'
 import Globe from './Globe.jsx'
 import ClockTower from './ClockTower.jsx'
 import { Reveal, reducedMotion } from './useReveal.js'
-
+const MapHero = lazy(() => import('./MapHero.jsx'))
 const yearsIn = (text) => (String(text || '').match(/\d{4}/g) || []).map(Number)
 
 function PickDefendant({ current }) {
@@ -23,31 +23,20 @@ function PickDefendant({ current }) {
 export function Home() {
   const data = useTrends()
   return (
-    <main className="page">
-      <p className="kicker">{data.meta.event} · {data.meta.team}</p>
-      <h1>Trend Court — Faisalabad on Trial</h1>
-      <p className="lede">
-        Every climate trend for Faisalabad, {data.meta.period}, is put on trial. The data is
-        the evidence. The tool shows the confidence the trend is real, when it may have
-        started, and a plain verdict — so a city water and drainage planner knows whether
-        it is strong enough to act on.
-      </p>
-      <p className="muted">
-        {data.meta.city} ({data.meta.latitude}° N, {data.meta.longitude}° E) · Data: {data.meta.dataset}
-      </p>
-      <div className="hero-visuals">
-        <Globe lat={data.meta.latitude} lon={data.meta.longitude} size={300} />
-        <ClockTower height={250} />
+    <main>
+      <Suspense fallback={<section className="map-hero" aria-busy="true" />}>
+        <MapHero data={data} />
+      </Suspense>
+      <div className="board" id="case-board">
+        <div className="board-head">
+          <h2>The Case Board</h2>
+          <p className="muted">Pick a defendant and put it on trial.</p>
+        </div>
+        <div className="grid">
+          {data.defendants.map((d, i) => <DefendantCard key={d.id} defendant={d} index={i} />)}
+        </div>
+        <p className="note">{data.not_tested_message}</p>
       </div>
-      <p className="muted hero-caption">
-        Drag the Earth to spin it — it settles back on Faisalabad. The tower clock shows
-        your real local time, and its eight lines are the eight bazaars.
-      </p>
-      <h2>The Case Board</h2>
-      <div className="grid">
-        {data.defendants.map((d, i) => <DefendantCard key={d.id} defendant={d} index={i} />)}
-      </div>
-      <p className="note">{data.not_tested_message}</p>
     </main>
   )
 }
@@ -465,9 +454,9 @@ export function Lab() {
       </Reveal>
       <Reveal as="section" className="step"><h2><StepIcon />Sensitivity checks are part of the result</h2>
         <p>Sub-period 2000–2019 alone, and the full period with 2020 dropped, are reported
-        for both defendants in the <Link to="/evidence">Evidence Vault</Link>. Surviving the
-        drop-2020 check strengthens the full-period result — it does not turn a 2020s-driven
-        change into a steady 26-year climb.</p></Reveal>
+          for both defendants in the <Link to="/evidence">Evidence Vault</Link>. Surviving the
+          drop-2020 check strengthens the full-period result — it does not turn a 2020s-driven
+          change into a steady 26-year climb.</p></Reveal>
     </main>
   )
 }
@@ -483,15 +472,15 @@ export function About() {
       </div>
       <section className="step"><h2>The project</h2>
         <p>{data.meta.project}, by {data.meta.team}, for {data.meta.event} —
-        challenge: “{data.meta.challenge}”. The named user is a Faisalabad city water and
-        drainage planner deciding whether to plan for wetter years — and whether a small
-        fall in temperature means heat planning can relax. Trend Court answers both
-        honestly, including when the honest answer is “do not act on this yet.”</p></section>
+          challenge: “{data.meta.challenge}”. The named user is a Faisalabad city water and
+          drainage planner deciding whether to plan for wetter years — and whether a small
+          fall in temperature means heat planning can relax. Trend Court answers both
+          honestly, including when the honest answer is “do not act on this yet.”</p></section>
       <section className="step"><h2>Data</h2>
         <p>{data.meta.dataset}. Variables: T2M (°C) and PRECTOTCORR (mm).
-        Region and period: {data.meta.city} ({data.meta.latitude}° N, {data.meta.longitude}° E),
-        {' '}{data.meta.period}, {data.meta.annual_values_count} annual values.
-        Units are SI: °C, mm, °C per year and mm per year, coordinates in decimal degrees.</p></section>
+          Region and period: {data.meta.city} ({data.meta.latitude}° N, {data.meta.longitude}° E),
+          {' '}{data.meta.period}, {data.meta.annual_values_count} annual values.
+          Units are SI: °C, mm, °C per year and mm per year, coordinates in decimal degrees.</p></section>
       <section className="step"><h2>Caveats — all in one place</h2>
         <ul>
           <li>POWER precipitation is a model and reanalysis product, not rain-gauge data.</li>
@@ -501,10 +490,10 @@ export function About() {
         </ul></section>
       <section className="step"><h2>AI-use declaration</h2>
         <p>Team Mind Flayer used Muse AI as a building helper for code, debugging, checking
-        numbers against the project data file, and drafting submission text. All data,
-        statistical tests, and results are from the NASA dataset and methods stated above,
-        and the team reviewed and verified the final project. Muse AI is not a registered
-        team member.</p></section>
+          numbers against the project data file, and drafting submission text. All data,
+          statistical tests, and results are from the NASA dataset and methods stated above,
+          and the team reviewed and verified the final project. Muse AI is not a registered
+          team member.</p></section>
     </main>
   )
 }
