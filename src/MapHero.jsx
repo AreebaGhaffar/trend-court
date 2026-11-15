@@ -309,11 +309,7 @@ export default function MapHero({ data }) {
         </div>
       </div>
 
-      <div className="map-tools">
-        <button type="button" className="chip-btn" onClick={() => setNight((n) => !n)} aria-pressed={night}>
-          {night ? '☀ Day Earth' : '🌙 Night lights'}
-        </button>
-      </div>
+
 
       <a className="scroll-cue" href="#case-board" aria-label="Scroll to the Case Board">
         <span>Case Board</span><i aria-hidden="true">↓</i>

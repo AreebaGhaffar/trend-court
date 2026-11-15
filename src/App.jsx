@@ -31,8 +31,7 @@ export default function App() {
       </div>
       <footer className="footer">
         <p>Trend Court — Faisalabad on Trial · Team Mind Flayer · NASA Space Apps Challenge 2026</p>
-        <p>All numbers on every page are read from one file: trends.json. Rainfall is a NASA
-        POWER model / reanalysis product, not rain-gauge data.</p>
+
       </footer>
     </>
   )
