@@ -464,11 +464,10 @@ export function Lab() {
 export function About() {
   const data = useTrends()
   return (
-    <main className="page">
+    <main className="page about-page">
       <h1>About / Data &amp; Caveats</h1>
       <div className="about-visuals">
-        <Globe lat={data.meta.latitude} lon={data.meta.longitude} size={150} mini label={false} />
-        <ClockTower height={170} silhouette />
+        <Globe lat={data.meta.latitude} lon={data.meta.longitude} size={760} />
       </div>
       <section className="step"><h2>The project</h2>
         <p>{data.meta.project}, by {data.meta.team}, for {data.meta.event} —
