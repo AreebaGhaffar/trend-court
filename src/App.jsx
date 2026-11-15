@@ -1,5 +1,6 @@
-import { NavLink, Outlet } from 'react-router'
+import { NavLink, Outlet, useLocation } from 'react-router'
 import './App.css'
+import './motion.css'
 
 const links = [
   ['/', 'Home'],
@@ -11,6 +12,7 @@ const links = [
 ]
 
 export default function App() {
+  const location = useLocation()
   return (
     <>
       <header className="topbar">
@@ -24,7 +26,9 @@ export default function App() {
           ))}
         </nav>
       </header>
-      <Outlet />
+      <div key={location.pathname} className="route-fade">
+        <Outlet />
+      </div>
       <footer className="footer">
         <p>Trend Court — Faisalabad on Trial · Team Mind Flayer · NASA Space Apps Challenge 2026</p>
         <p>All numbers on every page are read from one file: trends.json. Rainfall is a NASA
