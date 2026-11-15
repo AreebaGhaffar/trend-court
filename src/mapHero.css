@@ -1,0 +1,428 @@
+/* ---------- Home hero: Earth → Faisalabad fly-in ---------- */
+.map-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: calc(100svh - 58px);
+  min-height: 560px;
+  max-height: 980px;
+  background: #02060f;
+  border-bottom: 1px solid var(--line);
+}
+
+.map-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.map-canvas .maplibregl-canvas {
+  outline: none;
+  cursor: grab;
+}
+
+.map-canvas .maplibregl-canvas:active {
+  cursor: grabbing;
+}
+
+.map-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(2, 6, 15, 0.88) 0%, rgba(2, 6, 15, 0.45) 34%, transparent 58%),
+    linear-gradient(0deg, rgba(5, 11, 26, 0.95) 0%, transparent 28%);
+  transition: opacity 1.2s ease;
+}
+
+.mode-city .map-vignette,
+.mode-flying .map-vignette {
+  background: linear-gradient(0deg, rgba(5, 11, 26, 0.85) 0%, transparent 30%), linear-gradient(180deg, rgba(5, 11, 26, 0.5) 0%, transparent 18%);
+}
+
+/* Text column */
+.hero-copy {
+  position: absolute;
+  z-index: 2;
+  left: clamp(1rem, 5vw, 4.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 520px;
+  pointer-events: none;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.hero-copy .btn,
+.hero-copy a {
+  pointer-events: auto;
+}
+
+.mode-flying .hero-copy,
+.mode-city .hero-copy {
+  opacity: 0;
+  transform: translateY(-46%);
+  pointer-events: none;
+}
+
+.mode-flying .hero-copy .btn,
+.mode-city .hero-copy .btn {
+  pointer-events: none;
+}
+
+.hero-title {
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 0.98;
+  margin: 0.4rem 0 1rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #FFF6DC 0%, #E9B44C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.6));
+}
+
+.hero-title span {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.42em;
+  letter-spacing: 0.01em;
+  font-style: italic;
+  background: linear-gradient(90deg, #5BC0EB, #B9E6F8);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-lede {
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.6;
+  color: #D6E2F2;
+  margin: 0 0 1.4rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.hero-actions .btn {
+  margin-top: 0;
+}
+
+.hero-cta {
+  box-shadow: 0 0 28px rgba(201, 162, 75, 0.45);
+}
+
+.hero-cta span {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.hero-cta:hover span {
+  transform: translateX(5px);
+}
+
+.hero-meta {
+  margin: 1.2rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* City-mode panel */
+.city-panel {
+  position: absolute;
+  z-index: 2;
+  left: clamp(0.8rem, 3vw, 2rem);
+  bottom: clamp(0.8rem, 3vw, 2rem);
+  max-width: 440px;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(8, 18, 38, 0.62);
+  border: 1px solid rgba(201, 162, 75, 0.35);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+
+.mode-flying .city-panel,
+.mode-city .city-panel {
+  opacity: 1;
+  transform: none;
+}
+
+.mode-city .city-panel {
+  pointer-events: auto;
+}
+
+.city-panel .kicker {
+  margin: 0 0 0.3rem;
+}
+
+.city-hint {
+  margin: 0 0 0.8rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #D6E2F2;
+}
+
+.city-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.map-tools {
+  position: absolute;
+  z-index: 2;
+  top: 0.8rem;
+  left: clamp(0.8rem, 3vw, 2rem);
+}
+
+.chip-btn {
+  display: inline-block;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--ink);
+  background: rgba(8, 18, 38, 0.66);
+  border: 1px solid rgba(91, 192, 235, 0.5);
+  border-radius: 999px;
+  padding: 0.38rem 0.85rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: box-shadow 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.chip-btn:hover {
+  background: rgba(18, 49, 82, 0.85);
+  box-shadow: 0 0 14px rgba(91, 192, 235, 0.45);
+  transform: translateY(-1px);
+}
+
+.chip-btn.on {
+  background: var(--cyan);
+  color: #081226;
+}
+
+.chip-btn.gold {
+  border-color: var(--gold);
+  color: var(--amber);
+}
+
+.chip-btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.scroll-cue {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 4vw, 3rem);
+  bottom: 1.2rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.scroll-cue i {
+  font-style: normal;
+  font-size: 1.2rem;
+  color: var(--amber);
+  animation: cueBob 1.8s ease-in-out infinite;
+}
+
+@keyframes cueBob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.mode-city .scroll-cue,
+.mode-flying .scroll-cue {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ghanta Ghar pin */
+.gg-pin {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.gg-dot {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 12px 2px rgba(233, 180, 76, 0.9);
+}
+
+.gg-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--amber);
+  animation: ggPulse 2.2s ease-out infinite;
+}
+
+.gg-label {
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #FFF1CC;
+  text-shadow: 0 1px 8px #000, 0 0 12px rgba(0, 0, 0, 0.9);
+}
+
+@keyframes ggPulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* MapLibre controls, restyled to the theme */
+.maplibregl-ctrl-group {
+  background: rgba(8, 18, 38, 0.7) !important;
+  border: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+
+.maplibregl-ctrl-group button {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.maplibregl-ctrl-attrib {
+  background: rgba(5, 11, 26, 0.7) !important;
+  color: var(--muted) !important;
+}
+
+.maplibregl-ctrl-attrib a {
+  color: var(--muted) !important;
+}
+
+/* Fallback (no WebGL) */
+.map-hero-fallback {
+  height: auto;
+  max-height: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+}
+
+.map-hero-fallback .hero-copy {
+  position: static;
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Case board below the hero */
+.board {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 1rem 2.5rem;
+  scroll-margin-top: 70px;
+}
+
+.board-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 2.2rem 0 0.2rem;
+}
+
+.board-head h2 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+@media (max-width: 899px) {
+  .hero-copy {
+    top: auto;
+    bottom: clamp(1.2rem, 4vh, 2.4rem);
+    transform: none;
+    max-width: none;
+    right: 1rem;
+  }
+
+  .mode-flying .hero-copy,
+  .mode-city .hero-copy {
+    transform: translateY(14px);
+  }
+
+  .map-vignette {
+    background: linear-gradient(0deg, rgba(2, 6, 15, 0.96) 0%, rgba(2, 6, 15, 0.7) 32%, transparent 62%);
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 11vw, 3.4rem);
+  }
+
+  .hero-lede {
+    display: none;
+  }
+
+  .hero-meta,
+  .scroll-cue {
+    display: none;
+  }
+
+  .city-panel {
+    right: 0.8rem;
+    max-width: none;
+  }
+
+  .city-hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .gg-pulse,
+  .scroll-cue i {
+    animation: none;
+  }
+
+  .hero-copy,
+  .city-panel,
+  .map-vignette {
+    transition: none;
+  }
+}

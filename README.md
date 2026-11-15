@@ -1,96 +1,61 @@
-# Trend Court — Faisalabad on Trial
+Trend Court — Faisalabad on Trial
 
-**NASA International Space Apps Challenge 2026 · Team Mind Flayer**
-Challenge: **“Be An Earth System Trend Detective!”**
+Team Mind Flayer · NASA Space Apps Challenge 2026 · Challenge: "Be An Earth System Trend Detective!"
 
-Every climate trend for Faisalabad, 2000–2025, is put on trial. The data is
-the evidence. The tool shows the probability the trend is real, when it may
-have started, and a plain verdict — Proven, Not Proven, or Too Weak to Trust —
-so a planner knows whether it is strong enough to act on.
+A multi-page courtroom app that puts Faisalabad's climate trends (NASA POWER, 2000–2025) on trial and returns a plain verdict — Proven, Not Proven, or Too Weak to Trust — so a city water and drainage planner knows whether a trend is strong enough to act on.
 
-## The verdicts (the only numbers the app may use)
+Highlights
+Interactive Earth hero: a 3D globe with NASA night lights that flies down to Faisalabad's Ghanta Ghar (Clock Tower). Drag, zoom, rotate and tilt like a 360° map, start a helicopter orbit, and switch between Day Earth and Night lights. The eight gold lines mark the eight bazaars of the old city.
+Courtroom flow: Case Board → Trial → Evidence → Verdict, with a Method Lab that shows how the change-point test works.
+One source of truth: every number comes from public/trends.json.
+Accessible motion: animations respect prefers-reduced-motion; if WebGL is unavailable the hero falls back to a simple globe and clock tower.
+Team
+Role	Work
+Member 1	Data and backend — produces public/trends.json
+Member 2	Frontend and story — all UI in src/
 
-All numbers come from `src/data/trends.json` (NASA POWER, Faisalabad
-31.42°N, 73.08°E, 2000–2025). Nothing in the app quotes a number that is not
-in that file.
+The only contract between the two parts is public/trends.json.
 
-| Defendant | Trend, 2000–2025 | Hamed-Rao p | Verdict |
-| --- | --- | --- | --- |
-| Temperature (T2M) | −0.054 °C/yr | ≈ 0.0057 | Not Proven — Don’t trust it yet |
-| Rainfall (PRECTOTCORR) | +13.5 mm/yr | ≈ 0.0005 | Not Proven — Don’t trust it yet |
+Run it
 
-Both are significant on the full period after autocorrelation correction, but
-neither is significant on 2000–2019 alone — the change is driven by the
-2020s. Displayed confidence = (1 − p) × 100 (99.4% / 99.95%): a frequentist
-confidence approximation, **not** a Bayesian posterior. Change-point around
-2020 is a candidate, not proven. POWER rainfall is model/reanalysis, not
-rain-gauge data. The cooling needs a MODIS cross-check — do not relax heat
-planning.
+Requirements: Node.js 24.22.x and Git 2.43+.
 
-## Setup — install exactly these versions
+bash
+npm install
+npm run dev        # local dev server
+npm run build      # production build
+npm run preview    # serve the production build
 
-This repo was built by Muse (paired with Member 1). **Do not set up versions
-yourself — install exactly the versions in this repo**, so nothing conflicts.
+The home hero loads map imagery online, so it needs an internet connection.
 
-Pinned in `package.json` (exact versions, no `^` ranges):
+Tech stack (pinned versions)
 
-| Package | Version |
-| --- | --- |
-| react / react-dom | 18.3.1 |
-| react-router-dom | 6.28.0 |
-| framer-motion | 11.11.17 |
-| recharts | 2.13.3 |
-| vite | 5.4.11 |
-| @vitejs/plugin-react | 4.3.3 |
-| typescript | 5.6.3 |
-| @types/react | 18.3.12 |
-| @types/react-dom | 18.3.1 |
+React 19.3.1 · Vite 8.3.8 · @vitejs/plugin-react 6.3.0 · react-router 8.5.1 · Recharts 3.10.1 · MapLibre GL 6.16.0
 
-`.nvmrc` pins **Node 24.19.0**.
+Data rule: trends.json is the only source of numbers
 
-### Commands (run in this folder)
+Every number on every page is fetched at runtime from public/trends.json. No number is hard-coded in a component. The charts never invent values: they plot only what the file contains, and the annual line chart appears when the file includes annual_series.
 
-```bash
-node --version   # expect v24.19.0 (24.19.0 in .nvmrc)
-npm --version
-npm ci           # installs exactly what package-lock.json pins — use this, not npm install
-npm run dev      # local dev server, open the http://localhost:5173 link it prints
-npm run build    # production build into dist/
-npm run preview  # serve the production build locally to check it
-```
+Routes
+Route	Page
+/ (and /home)	Home — Earth hero and Case Board
+/trial?defendant=rainfall	The Trial (default defendant: Rainfall)
+/evidence	Evidence Vault
+/verdict?defendant=rainfall	Verdict and Planner Action
+/lab	Method / Change-Point Lab
+/about	About — data and caveats
 
-> Build verified by Muse on **Node v24.22.1 / npm 10.9.4** (the machine that
-> generated `package-lock.json`). The pinned dependencies are the same on
-> Node 24.19.0 — if `npm ci` works, `npm run build` works. If you use nvm:
-> `nvm install && nvm use` reads `.nvmrc` and gives you Node 24.19.0.
+Demo click-path (30 seconds): Home → Enter the court → Put on Trial for Rainfall → Trial → See the verdict → Verdict.
 
-## Pages (6 routes, shared top nav)
+Data and image credits
+Climate data: NASA POWER (Prediction of Worldwide Energy Resources)
+Earth imagery: NASA GIBS — Blue Marble and VIIRS Black Marble
+Satellite imagery: Esri, Maxar, Earthstar Geographics
+Map engine: MapLibre GL JS
+Deploying
 
-| Route | Page |
-| --- | --- |
-| `/` | Home / Case Board — the court, the defendants |
-| `/trial` | The Trial — pick a defendant, see the evidence + verdict stamp |
-| `/evidence` | Evidence Vault — both charts, full / sub-period / drop-2020 checks |
-| `/verdict` | Verdict & Planner Action — what to do / not do |
-| `/lab` | Method / Change-Point Lab — the test, the confidence label, the candidate change-point |
-| `/about` | Data & Caveats — sources, caveats, not-tested list, AI-use declaration |
+Static build (dist/). vercel.json and public/_redirects make deep links to all routes work on Vercel or Netlify. The app works logged out.
 
-Design: dark navy `#0A1128`, gold `#C9A227`, paper `#F5F1E8`, Playfair
-Display headings, Inter for data. Framer Motion: page transitions
-(0.4s), `layoutId` shared-element defendant card Home → Trial, gavel
-verdict stamp, Recharts line that draws in, staggered entrances.
-
-## Deploy
-
-`npm run build` produces `dist/`. Deploy that folder to Vercel (import the
-repo, framework preset “Vite”, build command `npm run build`, output
-directory `dist`). Test the live link logged out, on phone and laptop.
-
-## Still to do (for Areeba)
-
-- [ ] Record the 30-second demo video (script is in the Trend Court plan doc)
-- [ ] Deploy and test the public link logged out
-- [ ] Paste the submission copy from the plan doc into the NASA project page
-- [ ] Submit by **Sunday 15 Nov, 8:00 pm PKT** (hard close 11:59 pm PKT)
-- [ ] Optional: run a named change-point test (e.g. Pettitt’s) and record its
-      output in `src/data/trends.json` before quoting a change-point year
+Branches
+main — scaffold base
+member2/frontend-final — final frontend submission
