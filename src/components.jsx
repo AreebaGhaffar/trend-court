@@ -102,13 +102,13 @@ export function TrendChart({ defendant, crossExamined = false, highlightYear = n
   if (!rows.length) return <p className="muted">Not tested — no chart.</p>
   return (
     <figure className="chart" role="img" aria-label={`${defendant.name} chart — trend ${defendant.trend_display}, from trends.json`}>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={190}>
         <BarChart data={rows} margin={{ top: 10, right: 16, bottom: 0, left: 0 }}>
           <CartesianGrid stroke="#2A3D5A" strokeDasharray="3 3" />
           <XAxis dataKey="period" tick={AXIS_TICK} />
           <YAxis domain={[0, 'auto']} tick={AXIS_TICK} unit={defendant.unit === 'mm' ? ' mm' : ' °C'} />
           <Tooltip contentStyle={TOOLTIP_STYLE} cursor={{ fill: 'rgba(91,192,235,0.08)' }} />
-          <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+          <Bar dataKey="value" radius={[6, 6, 0, 0]} barSize={64}>
             {rows.map((r, i) => (
               <Cell key={r.period} fill={i === 0 ? '#7A8AA0' : '#D95F43'} />
             ))}
