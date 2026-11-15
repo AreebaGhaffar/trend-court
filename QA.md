@@ -71,11 +71,15 @@ wording from the plan was not changed.
 
 ## Known blockers — read these first on Sunday
 
-1. **GitHub repo not selected / branch not pushed.** GitHub is connected, but
-   no Trend Court repository has been selected for Muse's access, so
-   `member2/frontend-story` exists **locally only** (also in the zip the team
-   was given). Next step: select/create the repo, push this branch, open a
-   draft PR. **The team merges — Muse does not.**
+1. **GitHub push — DONE (Sun 15 Nov, ~00:53 PKT).** Branch
+   `member2/frontend-story` is live on `MaryammMalik/trend-court-frontend`
+   at commit `19a9872` (26 text files; the `.pptx` deck was excluded as
+   agreed — upload `slides/trend-court-slides.pptx` via the GitHub website,
+   or regenerate it with `slides/make_slides.py`). `main` holds only
+   GitHub's auto-created empty-README "Initial commit", and the branches
+   share no history — merge locally with
+   `git merge --allow-unrelated-histories member2/frontend-story`, or make
+   member2 the base. **The team merges — Muse does not.**
 2. **Member 1's frozen trends.json is still pending.** The app runs on the
    starter file built from plan numbers, clearly marked in its meta. Member 1
    must supply the frozen file with the full 26-value annual series and the
